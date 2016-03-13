@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+ <head>
+  <title>System Tray on Close Info Dialog - BasKet Note Pads</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="Author" lang="fr" content="S&eacute;bastien Lao&ucirc;t">
+  <meta name="copyright" content="&copy; 2003-2006 S&eacute;bastien Lao&ucirc;t.">
+  <link rel="stylesheet" type="text/css" href="includes/style.css">
+  <link rel="shortcut icon" type="image/png" href="icos/16-basket.png">
+  <link rel="alternate" type="application/rss+xml" title="BasKet Note Pads News" href="http://basket-notepads.github.io/basket.rss">
+  <meta name="verify-v1" content="JOY6B+WuxHbxJ9qDCOBdSY9EqLrABU6mWwoJQnk9aTo=">
+ </head>
+ <body>
+  <div id="header">
+   <div id="subHeader">
+    <p>Taking care of<br>
+      your ideas.</p>
+    <h1><a href="http://basket-notepads.github.io/"><img src="icos/64-basket.png" alt="" width="64" height="64"><img src="images/basket-note-pads.png" width="347" height="41" alt="BasKet Note Pads"></a><br></h1>
+    <div class="bar">
+     <ul>
+      <li><a href="index.html"       accesskey="h">Home</a></li>
+      <li><a href="news.html"        accesskey="n">News</a></li>
+      <li><a href="tour.html"        accesskey="t">Tour</a></li>
+      <li><a href="screenshots.html" accesskey="s">Screenshots</a></li>
+      <li><a href="download.html"    accesskey="d">Download</a></li>
+      <li><a href="development.html" accesskey="v">Development</a></li>
+      <li><a href="roadmap.html"     accesskey="r">Roadmap</a></li>
+      <li><a href="contribute.html"  accesskey="o">Contribute</a></li>
+      <li class="last"><a href="contact.html" accesskey="c">Contact</a></li>
+     </ul>
+    </div>
+   </div>
+  </div>
+
+  <div id="content">
+
+<!--    <div class="related">
+      <h2>Other Usability Informations</h2>
+      <div class="content">
+      <ul class="more">
+        <li><a href="usability.html">Usability page...</a></li>
+      </ul>
+      </div>
+      <div class="bottom">&nbsp;</div>
+    </div>
+-->
+
+    <div class="related">
+      <h2>Other Reusable Technologies</h2>
+      <div class="content">
+      <ul class="more">
+        <li><a href="likeback.html">LikeBack - Quick Feedback from Beta-Testers...</a></li>
+      </ul>
+      </div>
+      <div class="bottom">&nbsp;</div>
+    </div>
+
+    <h2 class="pageTitle withRelated"><span><span><img src="icos/32-oncloseinfo.png" alt="" width="32" height="32"> System Tray on Close Info Dialog</span></span></h2>
+
+    <p><!--This page is a light page of the <a href="usability.html">BasKet usability changes and features removals</a>, showing the new BasKet's On close info dialog. -->This improvement has been asked by the <a href="http://openusability.org/reports/?group_id=54">OpenUsability.org usability review</a>.<br>
+    I tryed to put this thing into KDE libs, but there is one remaining bug: if windows can be behind Kicker, the screenshot take that window and not the kicker icon!</p>
+
+    <h3>Rational</h3>
+    <ul>
+      <li>For the text: I've got it from <a href="http://developer.kde.org/~wheeler/juk.html">JuK</a> and like it because it's consise and relevant. But I used bold instead of surrounding menu items with simple quotes. My rationale is that users don't read the message boxes and have the two items hilighted like this help them to view and memorize the menus where to get the described feature. It also avoid traduction work to match local way of quotting texts.</li>
+      <li>For the image: Users (humans generally) are attracted to visual effects. This sort of message box with image is used similiary in the dialog used in Windows XP to configure the Taskbar, in Mozilla and other Windows applications...<br>
+      And I think it is a very good idea because, one more time, users don't read dialogs (and don't like them). This dialog is important for users to know the application they closed (and perhapse wanted to quit) is a quite special one. If it is pushed to be standard for all KDE applications, on the 2nd systray based application that the user close, he/she will <strong>immediatly</strong> see that he isn't quitting but minimizing the window. Images are more powerful and recognizable than (unreaded or not) texts: a picture explain all very quickly without have to pay attention in reading..., and users are pleased with.<br>
+      Moreover, the image I propose (in fact, the solution mentioned in the usability report) is <strong>dynamic</strong>. Ie. it mirror the <strong>real</strong> user desktop configuration and he/she can better match it to her screen.</li>
+    </ul>
+
+    <h3>Screenshots</h3>
+    <p>Screenshot of the &quot;on close info dialog&quot; that show a snapshot of the systray that circle the system tray icon. The screenshot is dynamically taken (not a static image), which then show the <strong>real</strong> user configuration:</p>
+    <p class="screenshotImage"><img src="usability/ksystemtray_red.png" alt="Normal screenshot: kicker with pixmap on bottom" width="447" height="289"></p>
+
+    <p>The snapshot is taken even if the kicker in on top of the screen:</p>
+    <p class="screenshotImage"><img src="usability/ksystemtray_top.png" alt="Transparent kicker on top" width="447" height="289"></p>
+
+    <p>Or on right (or left):</p>
+    <p class="screenshotImage"><img src="usability/ksystemtray_right.png" alt="Kicker on right" width="447" height="289"></p>
+
+    <p>Some guys proposed to use the current highlight color instead of red. But that color is often nearly the same as windows decoration one (kicker on top) or of the colored kicker... It result less contrast and a circle that can be missed:</p>
+    <p class="screenshotImage"><img src="usability/ksystemtray_highlight.png" alt="Same as first, but with highlight color instead of red: less visible" width="447" height="289"></p>
+
+    <h3>Implementation</h3>
+    <p>If you want to integrate this dialog in your application, copy and paste tis code in your project: <a href="ksystemtray2.txt">class KSystemTray2</a>.<br>
+    It is a class that inherit KSystemTray to extend it and add one method: <code>displayCloseMessage()</code>. Use or extend it instead of KSystemTray, and voil&agrave;!</p>
+
+  </div>
+  <div id="footer"><div><div>
+   &nbsp;
+  </div></div></div>
+  <div class="kdeProject"><a href="http://www.kde.org/"><img src="images/kde-project.png" width="116" height="16" alt="This is a KDE project"></a></div>
+  <!--[if lt IE 7]>
+   <script>
+    function fixPng(img) {
+     if (!img.style.filter) {
+      img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + img.src + "')";
+      img.src = "images/spacer.gif";
+     }
+    }
+    for (i = document.images.length - 1; i >= 0; i -= 1) {
+     var img = document.images[i];
+     if (img.src.substr(img.src.length - 4) == ".png")
+      if (img.complete)
+       fixPng(img);
+      else
+       img.attachEvent("onload", function() { fixPng(window.event.srcElement); });
+    }
+   </script>
+  <![endif]-->
+ </body>
+</html>
